@@ -1,12 +1,17 @@
 <?php
-date_default_timezone_set('America/Lima'); // Establecer la zona horaria de Per√∫
+include "bd.php";
+date_default_timezone_set('America/Lima'); 
+$sql = "SELECT idUsuario, nombre FROM usuario";
+$result = $conn->query($sql);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <title>Asistencia</title>
 </head>
 <body>
@@ -22,10 +27,12 @@ date_default_timezone_set('America/Lima'); // Establecer la zona horaria de Per√
                 <div class="flex items-center justify-center w-full h-1/6">
                     <label class="mr-2 font-bold text-3xl">Usuario:</label>
                     <select name="usuario" class="text-2xl text-center">
-                        <option value="1">Luis Cadillo</option>
-                        <option value="2">Nestor Cordova</option>
-                        <option value="3">Diandra Ticona</option>
-                        <option value="4">Mariano Sabana</option>
+                        <option value="0">Seleccionar</option>
+                        <?php
+                            while ($row = $result->fetch_assoc()) {
+                                echo '<option value="' . $row['idUsuario'] . '">' . $row['nombre'] . '</option>';
+                            }
+                        ?>
                     </select>
                 </div>
                 <div class="flex items-center justify-center w-full h-1/6">
@@ -35,7 +42,7 @@ date_default_timezone_set('America/Lima'); // Establecer la zona horaria de Per√
                     </div>
                     <div class="flex items-center justify-center w-3/6">
                         <label class="mr-2 font-bold text-3xl">Hora:</label>
-                        <input class="text-2xl text-center" type="time" id="hora" value="<?php echo date('H:i'); ?>" readonly>
+                        <input class="text-xl text-center" type="text" id="hora" readonly>
                     </div>
                 </div>
                 <div class="flex items-center justify-center w-full h-1/6">
@@ -52,5 +59,62 @@ date_default_timezone_set('America/Lima'); // Establecer la zona horaria de Per√
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            var usuarioSeleccionado;
+
+            $("select[name='usuario']").on("change", function() {
+                usuarioSeleccionado = $(this).val();
+            });
+
+            $("button:contains('Ingreso'), button:contains('Salida')").on("click", function() {
+                var tipoRegistro = $(this).text().trim();
+                if (usuarioSeleccionado !== undefined) {
+                    registrarAsistencia(usuarioSeleccionado, tipoRegistro);
+                } else {
+                    alert("Error: usuario Seleccionado no definido");
+                }
+            });
+
+            function registrarAsistencia(idUsuario, tipoRegistro) {
+                var fecha = $("#fecha").val();
+                var hora = $("#hora").val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "registrar_asistencia.php",
+                    data: {
+                        idUsuario: idUsuario,
+                        tipoRegistro: tipoRegistro,
+                        fecha: fecha,
+                        hora: hora
+                    },
+                    success: function(response) {
+                        alert(response);
+                    },
+                    error: function(error) {
+                        alert("Error en la solicitud AJAX:", error);
+                    }
+                });
+            }
+
+            // Funci√≥n para agregar un cero delante de n√∫meros menores que 10
+            function agregarCero(numero) {
+                return numero < 10 ? "0" + numero : numero;
+            }
+
+            // Funci√≥n para actualizar la hora y los segundos cada segundo
+            function actualizarHora() {
+                var horaActual = new Date();
+                var ampm = horaActual.getHours() >= 12 ? 'PM' : 'AM';
+                var horaFormato = agregarCero(horaActual.getHours() % 12) + ":" + agregarCero(horaActual.getMinutes()) + ":" + agregarCero(horaActual.getSeconds()) + " " + ampm;
+                $("#hora").val(horaFormato);
+            }
+
+            // Actualizar la hora y los segundos cada segundo
+            setInterval(actualizarHora, 1000);
+        });
+    </script>
 </body>
 </html>
