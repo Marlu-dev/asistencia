@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<diagrama version="8" nombreAutor="lcadi" formula="%t_%c" nombreProyecto="asistencia">
+  <DataBase>2</DataBase>
+  <lista-item>
+    <item id="{5e66ecbb-cb20-4ed0-b385-7b42f6c73f57}" type="modelo-tabla">
+      <nombre>Usuario</nombre>
+      <posicion>
+        <x>-293</x>
+        <y>-313</y>
+      </posicion>
+      <lista-columnas>
+        <columna llaveUnica="" notas="" id="{16a83285-b17f-490d-b96a-61361cdce4a5}" nombre="idUsuario" llaveprimaria="1" nulo="0" tipoDato="INTEGER"/>
+        <columna llaveUnica="" notas="" id="{d0177b5a-36e5-4971-b5bf-0059abd2393c}" nombre="nombre" llaveprimaria="0" nulo="0" tipoDato="VARCHAR(50)"/>
+      </lista-columnas>
+    </item>
+    <item id="{07154ebc-6b22-48e1-a733-b32c5b4344c4}" type="modelo-tabla">
+      <nombre>Ingreso</nombre>
+      <posicion>
+        <x>-4</x>
+        <y>-236</y>
+      </posicion>
+      <lista-columnas>
+        <columna llaveUnica="" notas="" id="{17560228-fb9e-4f4f-a3a2-3f828b39c1d3}" nombre="idIngreso" llaveprimaria="1" nulo="0" tipoDato="INTEGER"/>
+        <columna llaveUnica="" notas="" id="{50d9379c-1f0d-4291-986f-6b992a878e7e}" nombre="fecha" llaveprimaria="0" nulo="0" tipoDato="DATE"/>
+        <columna llaveUnica="" notas="" id="{6ea5748c-8ee3-4af8-92d9-d1e819acd7df}" nombre="hora" llaveprimaria="0" nulo="0" tipoDato="TIME"/>
+      </lista-columnas>
+    </item>
+    <item id="{f14717a8-69c1-4ebc-b9c2-daf894529c5d}" type="modelo-tabla">
+      <nombre>Salida</nombre>
+      <posicion>
+        <x>-582</x>
+        <y>-237</y>
+      </posicion>
+      <lista-columnas>
+        <columna llaveUnica="" notas="" id="{17560228-fb9e-4f4f-a3a2-3f828b39c1d3}" nombre="idSalida" llaveprimaria="1" nulo="0" tipoDato="INTEGER"/>
+        <columna llaveUnica="" notas="" id="{50d9379c-1f0d-4291-986f-6b992a878e7e}" nombre="fecha" llaveprimaria="0" nulo="0" tipoDato="DATE"/>
+        <columna llaveUnica="" notas="" id="{5996c023-2640-45b6-a3b8-4e4745546b6b}" nombre="hora" llaveprimaria="0" nulo="0" tipoDato="TIME"/>
+      </lista-columnas>
+    </item>
+    <item id="{1d9663da-2052-4050-9b76-b62681be9121}" type="modelo-relacion">
+      <inicio>
+        <posicion>
+          <x>-293</x>
+          <y>-289.5</y>
+        </posicion>
+        <angulo>180</angulo>
+        <cardinalidad>Uno</cardinalidad>
+        <cardinalidadLinea>Puede</cardinalidadLinea>
+        <owner>{5e66ecbb-cb20-4ed0-b385-7b42f6c73f57}</owner>
+      </inicio>
+      <final>
+        <posicion>
+          <x>-416</x>
+          <y>-200.5</y>
+        </posicion>
+        <angulo>0</angulo>
+        <cardinalidad>Muchos</cardinalidad>
+        <cardinalidadLinea>Debe</cardinalidadLinea>
+        <owner>{f14717a8-69c1-4ebc-b9c2-daf894529c5d}</owner>
+      </final>
+    </item>
+    <item id="{0223a526-0a5b-4001-b054-9601578fb65f}" type="modelo-relacion">
+      <inicio>
+        <posicion>
+          <x>-146</x>
+          <y>-289.5</y>
+        </posicion>
+        <angulo>0</angulo>
+        <cardinalidad>Uno</cardinalidad>
+        <cardinalidadLinea>Puede</cardinalidadLinea>
+        <owner>{5e66ecbb-cb20-4ed0-b385-7b42f6c73f57}</owner>
+      </inicio>
+      <final>
+        <posicion>
+          <x>-4</x>
+          <y>-199.5</y>
+        </posicion>
+        <angulo>180</angulo>
+        <cardinalidad>Muchos</cardinalidad>
+        <cardinalidadLinea>Debe</cardinalidadLinea>
+        <owner>{07154ebc-6b22-48e1-a733-b32c5b4344c4}</owner>
+      </final>
+    </item>
+  </lista-item>
+</diagrama>
