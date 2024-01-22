@@ -16,19 +16,19 @@ $result = $conn->query($sql);
     <title>Asistencia</title>
 </head>
 <body>
-    <div class="w-screen h-screen flex">
-        <div class="w-1/2 h-full flex items-center justify-center">
-            <img src="img.png" class="w-4/6 h-3/6">
+    <div class="w-screen h-screen flex text-center">
+        <div class="w-5/12 h-full flex items-center justify-center">
+            <img src="img.png" class="w-5/6 h-3/6">
         </div>
-        <div class="w-1/2 h-full flex items-center justify-center">
-            <div class="bg-gray-100 w-4/6 h-3/6 flex flex-col border border-black">
+        <div class="w-7/12 h-full flex items-center justify-center">
+            <div class="bg-gray-100 w-4/6 h-3/6 flex flex-col border-solid border-2 border-black rounded ">
                 <div class="flex items-center justify-center w-full h-1/6 mt-5">
                     <label class="text-4xl font-bold">Control de Asistencia</label>
                 </div>
-                <div class="flex items-center justify-center w-full h-1/6">
+                <div class="ml-10 flex items-start justify-start w-full h-1/6">
                     <label class="mr-2 font-bold text-3xl">Usuario:</label>
-                    <select name="usuario" class="text-2xl text-center" id="usuario" onchange="showHideButtons()">
-                        <option value="0">Seleccionar</option>
+                    <select name="usuario" class="text-2xl w-96 h-12 text-center rounded" id="usuario" onchange="showHideButtons()">
+                        <option value="0">Seleccionar usuario</option>
                         <?php
                         while ($row = $result->fetch_assoc()) {
                             echo '<option value="' . $row['idUsuario'] . '" data-estado="' . $row['estado'] . '">' . $row['nombre'] . '</option>';
@@ -36,26 +36,28 @@ $result = $conn->query($sql);
                         ?>
                     </select>
                 </div>
-                <div class="flex items-center justify-center w-full h-1/6">
-                    <div class="flex items-center justify-center w-3/6">
+                <div class="ml-10 flex items-start justify-start w-full h-1/6">
+                    <div class="flex items-start justify-start w-3/6">
                         <label class="mr-2 font-bold text-3xl">Fecha:</label>
-                        <input class="text-2xl text-center" type="date" id="fecha" value="<?php echo date('Y-m-d'); ?>" readonly>
+                        <input class="text-2xl w-48 h-12 text-center rounded bg-white" type="date" id="fecha" value="<?php echo date('Y-m-d'); ?>" disabled>
                     </div>
-                    <div class="flex items-center justify-center w-3/6">
+                </div>
+                <div class="ml-10 flex items-start justify-start w-full h-1/6">
+                    <div class="flex items-start justify-start w-3/6">
                         <label class="mr-2 font-bold text-3xl">Hora:</label>
-                        <input class="text-xl text-center" type="text" id="hora" readonly>
+                        <input class="text-2xl w-48 h-12 text-center rounded bg-white" type="text" id="hora" disabled>
+                    </div>
+                </div>
+                <div class="flex items-start justify-end w-9/12 h-1/6">
+                    <div class="flex items-center justify-center">
+                        <button id="btn-ingreso" class="text-2xl bg-blue-300 hover:bg-blue-500 text-black border border-black font-bold py-2 px-4 rounded-md relative shadow-md hidden" onclick="registrar('0')">Ingreso</button>
+                    </div>
+                    <div class="flex items-start justify-end">
+                        <button id="btn-salida" class="text-2xl bg-red-500 hover:bg-red-600 text-black border border-black font-bold py-2 px-4 rounded-md relative shadow-md hidden" onclick="registrar('1')">Salida</button>
                     </div>
                 </div>
                 <div class="flex items-center justify-center w-full h-1/6">
-                    <div class="flex items-center justify-center">
-                        <button id="btn-ingreso" class="text-2xl bg-white hover:bg-gray-100 text-black border border-black font-bold py-2 px-4 rounded-md relative shadow-md hidden" onclick="registrar('0')">Ingreso</button>
-                    </div>
-                    <div class="flex items-center justify-center">
-                        <button id="btn-salida" class="text-2xl bg-white hover:bg-gray-100 text-black border border-black font-bold py-2 px-4 rounded-md relative shadow-md hidden" onclick="registrar('1')">Salida</button>
-                    </div>
-                </div>
-                <div class="flex items-center justify-center w-full h-1/6">
-                    <a href="#" class="text-2xl text-blue-500 underline">Ver Reporte</a>
+                    <a href="reporte.php" target="_blank" class="text-2xl text-blue-500 underline">Ver Reporte</a>
                 </div>
             </div>
         </div>
